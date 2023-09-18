@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css"
 import AuthenticationPage from "./pages/auth/authenticationPage";
-import UnauthorizedPage from "./pages/unauthorizedPage";
 import HomePage from "pages/homepage/homepage";
+import UnauthorizedPage from "pages/homepage/unauthorizedPage/UnauthorizedPage";
 
 
 function App() {

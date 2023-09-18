@@ -53,3 +53,9 @@
   background-color: #007bff; /* Background color of options on hover */
   color: #fff; /* Text color of options on hover */
 }
+
+@media (max-width: 530px) {
+  .manipulateTask{
+    flex-direction: column;
+  }
+}

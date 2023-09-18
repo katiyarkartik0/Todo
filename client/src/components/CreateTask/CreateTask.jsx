@@ -19,6 +19,9 @@ const CreateTask = ({ onTaskCreate }) => {
       setTaskDescription('');
       await createTask({ accessToken, task: { ...task, taskSignature } })
     }
+    else{
+      alert("please provide a valid title")
+    }
   };
 
   return (

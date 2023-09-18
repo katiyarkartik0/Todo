@@ -6,14 +6,16 @@ import { useSelector } from 'react-redux';
 import { getAccessToken } from 'helpers/selector';
 import pendingClock from "utils/icons/pendingClock.png";
 import completed from "utils/icons/completedIcon.png";
+import { Modal } from 'components/ModalComponent/Modal';
 
 const deleteButtonStyles = { "margin-left": "5px", "background-color": "red" };
 const editButtonStyles = { "margin-left": "5px", "background-color": "green" }
 
-const Task = ({ task, status,onTaskDelete }) => {
+const Task = ({ task, status, onTaskDelete }) => {
   const accessToken = useSelector(getAccessToken)
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState(status)
+  const [currentStatus, setCurrentStatus] = useState(status);
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const toggleDescription = () => {
     setIsDescriptionOpen(!isDescriptionOpen);
@@ -31,8 +33,13 @@ const Task = ({ task, status,onTaskDelete }) => {
     await deleteTask({ accessToken, taskSignature })
   }
 
+  const toggleModal = () => {
+    setIsModalVisible(false)
+  }
+
   return (
     <div className="task">
+      {isModalVisible && <Modal toggleModal={toggleModal} task={task} status={currentStatus} />}
       <div className="task-header">
         <img src={currentStatus === "Completed" ? completed : pendingClock} width="20px" />
         <h3 className="task-title">{task.title}</h3>
@@ -43,7 +50,7 @@ const Task = ({ task, status,onTaskDelete }) => {
             <option value={false} className="status-option" selected={currentStatus !== "Completed"}>Pending</option>
           </select>
           <Button text="Delete" onClickEvent={handleTaskDelete} style={deleteButtonStyles} />
-          <Button text="Edit" style={editButtonStyles} />
+          <Button text="Edit" style={editButtonStyles} onClickEvent={() => setIsModalVisible(true)} />
         </div>
       </div>
       {isDescriptionOpen && (
