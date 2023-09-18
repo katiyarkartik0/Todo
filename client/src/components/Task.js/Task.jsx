@@ -41,10 +41,12 @@ const Task = ({ task, status, onTaskDelete }) => {
     <div className="task">
       {isModalVisible && <Modal toggleModal={toggleModal} task={task} status={currentStatus} />}
       <div className="task-header">
-        <img src={currentStatus === "Completed" ? completed : pendingClock} width="20px" />
-        <h3 className="task-title">{task.title}</h3>
-        <Button text={isDescriptionOpen ? 'Hide Description' : 'Show Description'} onClickEvent={toggleDescription} />
+        <div className='taskNav'>
+          <img src={currentStatus === "Completed" ? completed : pendingClock} width="20px" />
+          <h3 className="task-title">{task.title}</h3>
+        </div>
         <div className='manipulateTask'>
+          <Button text={isDescriptionOpen ? 'Hide Description' : 'Show Description'} onClickEvent={toggleDescription} />
           <select name="status" id="status" className="status-select" onChange={handleStatus}>
             <option value={true} className="status-option" selected={currentStatus === "Completed"}>Completed</option>
             <option value={false} className="status-option" selected={currentStatus !== "Completed"}>Pending</option>

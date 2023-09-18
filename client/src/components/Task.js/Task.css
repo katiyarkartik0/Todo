@@ -26,6 +26,13 @@
   align-items: center;
 }
 
+.taskNav{
+  display: flex;
+  align-items: center;
+  width: 50%;
+  gap: 20px; /* Set the desired gap between divs */
+}
+
 .status-select {
   padding: 10px;
   border: 1px solid #ccc;
@@ -33,6 +40,7 @@
   font-size: 16px;
   background-color: #fff; /* Background color when not focused */
   transition: border-color 0.3s, background-color 0.3s;
+  margin-left: 5px;
 }
 
 .status-select:focus {
@@ -54,8 +62,16 @@
   color: #fff; /* Text color of options on hover */
 }
 
-@media (max-width: 530px) {
+@media (max-width: 700px) {
+  .task-header{
+    flex-direction: column;
+  }
+}
+
+@media(max-width:500px){
   .manipulateTask{
     flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
   }
 }
