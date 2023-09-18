@@ -25,3 +25,9 @@ export const updateTask = async ({ accessToken, task }) =>
     },
     body: JSON.stringify({ ...task }),
   });
+
+export const deleteTask = async ({ accessToken, taskSignature }) =>
+  await fetch(`${ENDPOINT}/api/tasks/deleteTask?taskSignature=${taskSignature}`, {
+    method: "DELETE",
+    headers: { authorization: `JWT ${accessToken}` },
+  });

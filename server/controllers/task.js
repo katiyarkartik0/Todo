@@ -7,7 +7,7 @@ const getTasks = async (req, res) => {
   }
   const userId = req.id;
   try {
-    const { tasks } = await User.findById(userId).populate('tasks');
+    const { tasks } = await User.findById(userId).populate("tasks");
     return res.status(200).json({ tasks });
   } catch (error) {
     return res.status(500).json({ msg: JSON.stringify(error) });
@@ -61,4 +61,24 @@ const updateTask = async (req, res) => {
   }
 };
 
-module.exports = { getTasks,createTask, updateTask };
+const deleteTask = async (req, res) => {
+  if (req.verified == false) {
+    return res.status(403).json({ msg: req.msg });
+  }
+  const { taskSignature } = req.query;
+  if (!taskSignature) {
+    return res
+      .status(400)
+      .json({ msg: "please provide a valid Task Signature" });
+  }
+
+  try {
+    await Task.deleteOne({ taskSignature });
+
+    return res.status(200).json({ msg: "Task deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ msg: JSON.stringify(error) });
+  }
+};
+
+module.exports = { getTasks, createTask, updateTask, deleteTask };

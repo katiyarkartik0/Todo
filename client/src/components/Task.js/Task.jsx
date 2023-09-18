@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./Task.css"
 import Button from 'components/Button/Button';
-import { updateTask } from 'api/task';
+import { deleteTask, updateTask } from 'api/task';
 import { useSelector } from 'react-redux';
 import { getAccessToken } from 'helpers/selector';
 import pendingClock from "utils/icons/pendingClock.png";
@@ -25,6 +25,11 @@ const Task = ({ task, status }) => {
     await updateTask({ accessToken, task: { ...task, isCompleted } })
   }
 
+  const handleTaskDelete = async () => {
+    const { taskSignature } = task
+    await deleteTask({ accessToken, taskSignature })
+  }
+
   return (
     <div className="task">
       <div className="task-header">
@@ -36,8 +41,8 @@ const Task = ({ task, status }) => {
             <option value={true} className="status-option" selected={currentStatus === "Completed"}>Completed</option>
             <option value={false} className="status-option" selected={currentStatus !== "Completed"}>Pending</option>
           </select>
-          <Button text="Delete" style={ deleteButtonStyles} />
-          <Button text="Edit" style={editButtonStyles } />
+          <Button text="Delete" onClickEvent={handleTaskDelete} style={deleteButtonStyles} />
+          <Button text="Edit" style={editButtonStyles} />
         </div>
       </div>
       {isDescriptionOpen && (
