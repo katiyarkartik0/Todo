@@ -1,4 +1,4 @@
-const ENDPOINT = "http://localhost:3001";
+import { ENDPOINT } from "helpers/constants";
 
 export const fetchTasks = async (accessToken) =>
   await fetch(`${ENDPOINT}/api/tasks/getTasks`, {

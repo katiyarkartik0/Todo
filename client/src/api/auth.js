@@ -1,6 +1,4 @@
-// import { ENDPOINT } from "../constants";
-
-const ENDPOINT = "http://localhost:3001"
+import { ENDPOINT } from "helpers/constants";
 
 export const userLogin = async (userCredentials) =>
   await fetch(`${ENDPOINT}/api/auth/login`, {
