@@ -4,7 +4,7 @@ const taskSchema = mongoose.Schema(
   {
     taskSignature: { type: String, required: true },
     title: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String },
     isCompleted: { type: Boolean, required: true },
   },
   { timestaps: true }

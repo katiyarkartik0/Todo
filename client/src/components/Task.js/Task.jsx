@@ -10,7 +10,7 @@ import completed from "utils/icons/completedIcon.png";
 const deleteButtonStyles = { "margin-left": "5px", "background-color": "red" };
 const editButtonStyles = { "margin-left": "5px", "background-color": "green" }
 
-const Task = ({ task, status }) => {
+const Task = ({ task, status,onTaskDelete }) => {
   const accessToken = useSelector(getAccessToken)
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const [currentStatus, setCurrentStatus] = useState(status)
@@ -27,6 +27,7 @@ const Task = ({ task, status }) => {
 
   const handleTaskDelete = async () => {
     const { taskSignature } = task
+    onTaskDelete(taskSignature)
     await deleteTask({ accessToken, taskSignature })
   }
 
