@@ -1,26 +1,43 @@
 import React, { useState } from 'react';
 import "./Task.css"
 import Button from 'components/Button/Button';
-const Task = ({ task, icon, status }) => {
+import { updateTask } from 'api/task';
+import { useSelector } from 'react-redux';
+import { getAccessToken } from 'helpers/selector';
+import pendingClock from "utils/icons/pendingClock.png";
+import completed from "utils/icons/completedIcon.png";
+
+const deleteButtonStyles = { "margin-left": "5px", "background-color": "red" };
+const editButtonStyles = { "margin-left": "5px", "background-color": "green" }
+
+const Task = ({ task, status }) => {
+  const accessToken = useSelector(getAccessToken)
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState(status)
 
   const toggleDescription = () => {
     setIsDescriptionOpen(!isDescriptionOpen);
   };
 
+  const handleStatus = async (e) => {
+    const isCompleted = e.target.value
+    setCurrentStatus(isCompleted === "true" ? "Completed" : "Pending");
+    await updateTask({ accessToken, task: { ...task, isCompleted } })
+  }
+
   return (
     <div className="task">
       <div className="task-header">
-        <img src={icon} width="20px" />
+        <img src={currentStatus === "Completed" ? completed : pendingClock} width="20px" />
         <h3 className="task-title">{task.title}</h3>
         <Button text={isDescriptionOpen ? 'Hide Description' : 'Show Description'} onClickEvent={toggleDescription} />
         <div className='manipulateTask'>
-          <select name="status" id="status" className="status-select">
-            <option value="completed" className="status-option">Completed</option>
-            <option value="pending" className="status-option" selected>Pending</option>
+          <select name="status" id="status" className="status-select" onChange={handleStatus}>
+            <option value={true} className="status-option" selected={currentStatus === "Completed"}>Completed</option>
+            <option value={false} className="status-option" selected={currentStatus !== "Completed"}>Pending</option>
           </select>
-          <Button text="Delete" style={{ "margin-left": "5px", "background-color": "red" }} />
-          <Button text="Edit" style={{ "margin-left": "5px", "background-color": "green" }}/>
+          <Button text="Delete" style={ deleteButtonStyles} />
+          <Button text="Edit" style={editButtonStyles } />
         </div>
       </div>
       {isDescriptionOpen && (

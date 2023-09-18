@@ -3,6 +3,8 @@ import "./CreateTask.css"
 import { createTask } from 'api/task';
 import { useSelector } from 'react-redux';
 import { getAccessToken } from 'helpers/selector';
+import { v4 as uuidv4 } from 'uuid';
+
 const CreateTask = ({ onTaskCreate }) => {
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
@@ -10,11 +12,12 @@ const CreateTask = ({ onTaskCreate }) => {
 
   const handleTaskCreate = async () => {
     if (taskTitle.trim() !== '') {
-      const task = { title: taskTitle, description: taskDescription }
+      const taskSignature = uuidv4()
+      const task = { title: taskTitle, description: taskDescription, taskSignature }
       onTaskCreate(task);
       setTaskTitle('');
       setTaskDescription('');
-      await createTask({ accessToken, task: { ...task, taskSignature: "LL" } })
+      await createTask({ accessToken, task: { ...task, taskSignature } })
     }
   };
 

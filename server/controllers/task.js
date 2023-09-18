@@ -47,7 +47,7 @@ const updateTask = async (req, res) => {
   const { taskSignature, title, description, isCompleted } = req.body;
 
   try {
-    const { _id: taskId } = await Task.find({ taskSignature });
+    const { _id: taskId } = await Task.findOne({ taskSignature });
 
     await Task.findByIdAndUpdate(taskId, {
       title,

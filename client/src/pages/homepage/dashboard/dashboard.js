@@ -1,9 +1,7 @@
 import CreateTask from "components/CreateTask/CreateTask";
 import Task from "components/Task.js/Task";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./dashboard.css";
-import pendingClock from "utils/icons/pendingClock.png";
-import completed from "utils/icons/completedIcon.png";
 import { fetchTasks } from "api/task";
 import { useSelector } from "react-redux";
 import { getAccessToken } from "helpers/selector";
@@ -28,24 +26,25 @@ const Dashboard = () => {
     setTasks([newTask, ...tasks]);
   };
 
-  const renderTasks = () => {
+  const renderTasks = useCallback(() => {
     const completedTasks = [];
     const pendingTasks = [];
     tasks.forEach((task, index) => {
-      if (task.isCompleted) {
+      const { isCompleted, taskSignature } = task;
+      if (isCompleted) {
         completedTasks.push(
-          <Task key={index} task={task} status="Completed" icon={completed} />
+          <Task key={taskSignature} task={task} status="Completed" />
         );
       } else {
         pendingTasks.push(
-          <Task key={index} task={task} status="Pending" icon={pendingClock} />
+          <Task key={taskSignature} task={task} status="Pending" />
         );
       }
     });
     return (
       <div className="task-list">{[...pendingTasks, ...completedTasks]}</div>
     );
-  };
+  }, [tasks]);
 
   return (
     <div className="dashboard">

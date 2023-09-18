@@ -15,3 +15,13 @@ export const createTask = async ({ accessToken, task }) =>
     },
     body: JSON.stringify({ ...task }),
   });
+
+export const updateTask = async ({ accessToken, task }) =>
+  await fetch(`${ENDPOINT}/api/tasks/updateTask`, {
+    method: "PUT",
+    headers: {
+      authorization: `JWT ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...task }),
+  });
