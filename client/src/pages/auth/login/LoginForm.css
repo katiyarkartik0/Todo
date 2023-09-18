@@ -32,19 +32,6 @@
     font-size: 14px;
     cursor: pointer;
   }
-  
-  /* For screens smaller than 768px */
-  @media screen and (max-width: 768px) {
-  
-    .input-field {
-      font-size: 14px;
-    }
-  
-    .show-hide {
-      font-size: 12px;
-    }
-  }
-  
   /* For screens smaller than 480px */
   @media screen and (max-width: 480px) {
       
