@@ -7,7 +7,7 @@ const getTasks = async (req, res) => {
   }
   const userId = req.id;
   try {
-    const { tasks } = await User.findById(userId);
+    const { tasks } = await User.findById(userId).populate('tasks');
     return res.status(200).json({ tasks });
   } catch (error) {
     return res.status(500).json({ msg: JSON.stringify(error) });

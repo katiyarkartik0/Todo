@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const { authRoutes } = require("./routes/auth");
 const { taskRoutes } = require("./routes/task");
 const { verifyToken } = require("./middleware/verifyToken");
-// const { verifyToken } = require("./middleware/verifyToken");
 const routes = express.Router();
 
 dotenv.config();
@@ -21,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-app.use("/api/task", verifyToken, taskRoutes);
+app.use("/api/tasks", verifyToken, taskRoutes);
 // app.use("/api/user", verifyToken, userRoutes);
 // app.use("/api/chat", verifyToken, chatRoutes);
 // app.use("/api/message", verifyToken, messageRoutes);
@@ -31,4 +30,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => app.listen(process.env.PORT));
+  .then(() => {
+    console.log("App has started")
+    app.listen(process.env.PORT)}
+    );

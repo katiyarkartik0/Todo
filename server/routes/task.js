@@ -6,7 +6,7 @@ const { createTask, updateTask, getTasks } = require("../controllers/task");
 taskRoutes.use(bodyParser.urlencoded({ extended: false }));
 taskRoutes.use(bodyParser.json());
 
-taskRoutes.post("/getTasks",getTasks);
+taskRoutes.get("/getTasks",getTasks);
 taskRoutes.post("/createTask",createTask);
 taskRoutes.put("/updateTask",updateTask)
 
