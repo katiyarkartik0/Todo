@@ -1,0 +1,11 @@
+.create-task{
+    width: 360px;
+    padding: 40px;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
+}
+
+.statusHeading{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
