@@ -7,7 +7,6 @@ import { setLogin } from "store/slices/authSlice";
 
 import Button from "components/Button/Button";
 import { Loader } from "utils/Loader/Loader";
-// import { setToast } from "store/slices/toastSlice";
 import { fieldValidation } from "helpers/validator";
 
 import "./LoginForm.css";
@@ -52,19 +51,16 @@ const LoginForm = () => {
         if (res.ok) {
           const { userData, accessToken, msg } = await res.json();
           dispatch(setLogin({ accessToken, userData }));
-          //   dispatch(setToast({ status: "success", displayMessage: msg }));
           navigate("/todo");
           return;
         }
         if (!res.ok) {
           const { msg } = await res.json();
-          //   dispatch(setToast({ status: "failure", displayMessage: msg }));
+          alert(msg)
         }
       })
       .catch((error) => {
-        // dispatch(
-        //   setToast({ status: "failure", displayMessage: JSON.stringify(error) })
-        // );
+        alert(JSON.stringify(error))
       });
     setErrors(defaultError);
     setIsLoading(false);
@@ -96,6 +92,18 @@ const LoginForm = () => {
       {errors.password && (
         <span className="input-error">{errors.password}</span>
       )}
+      <br></br>
+      <Button
+        type="button"
+        onClickEvent={() =>
+          setUserCredentials({
+            email: "katiyarkartik0@gmail.com",
+            password: "qwerty",
+          })
+        }
+        text="Generate Sample User Credentials"
+        style={{ width: "100%" }}
+      />
       <br></br>
 
       {!isLoading && (

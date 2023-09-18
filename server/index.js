@@ -21,9 +21,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", verifyToken, taskRoutes);
-// app.use("/api/user", verifyToken, userRoutes);
-// app.use("/api/chat", verifyToken, chatRoutes);
-// app.use("/api/message", verifyToken, messageRoutes);
 
 mongoose
   .connect(process.env.MONGO_URL, {
